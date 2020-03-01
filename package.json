@@ -1,0 +1,23 @@
+{
+  "name": "giftastic",
+  "version": "1.0.0",
+  "description": "Gifs and JQuery",
+  "main": "index.html",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevenbowler/GifTastic.git"
+  },
+  "author": "Steven Bowler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevenbowler/GifTastic/issues"
+  },
+  "homepage": "https://github.com/stevenbowler/GifTastic#readme",
+  "dependencies": {
+    "@types/jquery": "^3.3.33",
+    "jsdoc": "^3.6.3"
+  }
+}
