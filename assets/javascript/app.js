@@ -76,7 +76,7 @@ $(document).ready(function () {
                 $("#base").empty();
                 console.log(response);
                 for (var i = 0; i < 10; i++) {
-                    var gifDiv = $("<div style='float:left;'>");
+                    var gifDiv = $("<div style='float:left;' class='animated zoomInRight'>");
                     var gif = $("<img>");
                     var p = $("<p class='text-light'>");
                     var oldGif = $("#image" + i.toString());
