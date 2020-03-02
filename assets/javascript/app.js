@@ -74,21 +74,30 @@ $(document).ready(function () {
                 var feelingView = $("<div id='feeling-view'>");
                 feelingView.empty();
                 $("#base").empty();
+                console.log(response);
                 for (var i = 0; i < 10; i++) {
+                    var gifDiv = $("<div style='float:left;'>");
                     var gif = $("<img>");
+                    var p = $("<p class='text-light'>");
                     var oldGif = $("#image" + i.toString());
                     oldGif.removeAttr("data-still");
                     oldGif.removeAttr("data-animate");
                     gif.addClass("gif");
-                    gif.attr("src", response.data[i].images.original.url);
+                    gif.attr("src", response.data[i].images.original_still.url);
+                    gif.attr("rating", response.data[i].rating);
+                    p.text("Rating: " + response.data[i].rating);
                     gif.attr("data-name", "image" + i.toString());
                     gif.attr("id", "image" + i.toString());
                     gif.attr("data-still", response.data[i].images.original_still.url);
                     // console.log("response data-still" + response.data[i].images.original_still.url);
                     gif.attr("data-animate", response.data[i].images.original.url);
                     // console.log("response data-" + response.data[i].images.original.url);
-                    gif.attr("data-state", "animate");
-                    gif.appendTo("#feeling-view");
+                    gif.attr("data-state", "still");
+                    gifDiv.append(gif);
+                    gifDiv.append(p);
+                    feelingView.append(gifDiv);
+                    // gif.appendTo("#feeling-view");
+                    // p.appendTo("#feeling-view");
                     feelingView.appendTo("#base");
                 }
                 feelingView.on("click", ".gif", gifStillAnimate);
