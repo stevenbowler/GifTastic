@@ -7,17 +7,27 @@
  * 
  * */
 
-/**@type {JQuery} 
- * @selector $(document).ready
+/**
+ * Wraps all JQuery
+ * @event $documentReady
 */
 $(document).ready(function () {
 
-    // Initial array of feelings
+    // 
+    /**Initial array of feelings
+     * @type {Array<string>}
+     */
     var feelings = ["Happy", "Sad", "Victory", "Joy", "Pain", "Middle Finger", "Indigestion", "Cut The Cheese", "Cramps", "Success", "Failure"];
 
+    /**Has page been loaded before, if yes then use animateCSS to unload previous 
+     * @type {number}
+    */
+    var loadCount = 0;
 
-    /** Generic function for capturing the feeling name from the data-attribute
-     * @function renderButtons called from {@link bottom}
+
+    /** 
+     * Generic function for capturing the feeling name from the data-attribute, called from {@link bottom}
+     * @function renderButtons 
      */
     function renderButtons() {
         // Deleting the feelings prior to adding new feelings
@@ -42,9 +52,9 @@ $(document).ready(function () {
     }
 
 
-    /** Event when user requests to add a new feeling to {@link feelingArray}, then call {@link renderButtons}
-     * @event
-     * @function $("#add-feeling") 
+    /** 
+     * Onclick event when user requests to add a new feeling to {@link feelingArray}, then call {@link renderButtons}
+     * @event $add-feelingOnclick
     */
     $("#add-feeling").on("click", function (event) {
         event.preventDefault();
@@ -61,7 +71,7 @@ $(document).ready(function () {
     });
 
 
-    /** called from {@link document} event listener click on feeling class
+    /** called from {@link $(document).on("click")} event listener click on feeling class
      * @function alertFeelingName 
      * @param {object} e event object
      */
@@ -72,6 +82,8 @@ $(document).ready(function () {
         $.ajax({ url, method: "GET" })
             .then(function (response) {
                 var feelingView = $("<div id='feeling-view'>");
+                // if (loadCount >= 1) animateCSS("#feeling-view", "zoomOutLeft");
+                // ++loadCount;
                 feelingView.empty();
                 $("#base").empty();
                 console.log(response);
@@ -100,6 +112,10 @@ $(document).ready(function () {
                     // p.appendTo("#feeling-view");
                     feelingView.appendTo("#base");
                 }
+                /**
+                 * On click class gif calls {@link gifStillAnimate} set onclick after div built
+                 * @event $feelingViewOnclick
+                 */
                 feelingView.on("click", ".gif", gifStillAnimate);
             }).catch(function (err) {
                 console.log(err);
@@ -110,7 +126,8 @@ $(document).ready(function () {
 
 
     /**
-     * @event $(".gif") onclick toggle between animate and still called after the feeling-view class is created
+     * Onclick toggle between animate and still called after the feeling-view class is created
+     * @function gifStillAnimate 
      * @param {object} e
      */
     const gifStillAnimate = (e) => {
@@ -132,6 +149,35 @@ $(document).ready(function () {
         }
     }
 
+
+    /**
+     * Called from various points to animate unload load of content in divs,
+     *      from GitHub animate.css library
+     * @async
+     * @function animateCSS
+     * @param {*} element div id/class/tag to be modified
+     * @param {*} animationName from list of animateCSS classes
+     * @param {*} [callback] required if unloading before loading div with content, async
+     */
+    const animateCSS = (element, animationName, callback) => {
+        const node = document.querySelector(element)
+        node.classList.add('animated', animationName)
+
+        function handleAnimationEnd() {
+            node.classList.remove('animated', animationName)
+            node.removeEventListener('animationend', handleAnimationEnd)
+
+            if (typeof callback === 'function') callback()
+        }
+
+        node.addEventListener('animationend', handleAnimationEnd)
+    }
+
+
+    /**
+     * On click feeling class to call {@link alertFeelingName}
+     * @event $documentOnclick 
+     */
     $(document).on("click", ".feeling", alertFeelingName);
 
     /**@bottom Calling the renderButtons function to display the intial buttons
