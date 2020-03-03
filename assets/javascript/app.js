@@ -13,7 +13,7 @@
 */
 $(document).ready(function () {
 
-    // 
+
     /**Initial array of feelings
      * @type {Array<string>}
      */
@@ -21,9 +21,19 @@ $(document).ready(function () {
 
     /**Has page been loaded before, if yes then use animateCSS to unload previous 
      * @type {number}
-    */
+     */
     var loadCount = 0;
 
+    /**Has page been loaded before, if yes then use animateCSS to unload previous 
+     * @type {number}
+     */
+    var gifCount = 0;
+
+    /**
+     * div type where images are loaded then appended
+     * @type {JQuery}
+     */
+    var feelingView = $("<div id='feeling-view'>");
 
     /** 
      * Generic function for capturing the feeling name from the data-attribute, called from {@link bottom}
@@ -71,33 +81,50 @@ $(document).ready(function () {
     });
 
 
+
+    var lastFeeling = "";       // used if user requests 10 more of same feeling gifs then use same string
+
     /** called from {@link $(document).on("click")} event listener click on feeling class
      * @function alertFeelingName 
      * @param {object} e event object
      */
     const alertFeelingName = (e) => {
+        if (gifCount >= 100) { alert("max 100 gifs exceeded, choose another feeling"); return; }
         var feeling = e.target.innerText;
-        var url = "https://api.giphy.com/v1/gifs/search?api_key=sGt5xc6wCkBEmaU8njjufs8ZOuKh5enL&q=" + feeling;
+        if (feeling === "Add 10 Gifs") {
+            console.log("feeling" + feeling);
+            feeling = lastFeeling;
+            gifCount = gifCount + 10;
+        }
+        else {
+            gifCount = 0;
+            lastFeeling = feeling;
+        }
+        feelingView.empty();
+        $("#base").empty();
+        var url = "https://api.giphy.com/v1/gifs/search?api_key=sGt5xc6wCkBEmaU8njjufs8ZOuKh5enL&limit=100&q=" + feeling;
         console.log("Feeling name is: " + e.target.innerText + "feeling: " + feeling);
         $.ajax({ url, method: "GET" })
             .then(function (response) {
-                var feelingView = $("<div id='feeling-view'>");
-                // if (loadCount >= 1) animateCSS("#feeling-view", "zoomOutLeft");
-                // ++loadCount;
-                feelingView.empty();
-                $("#base").empty();
+                if (gifCount === 0) {       // if new feeling empty everything then reload
+                }
                 console.log(response);
-                for (var i = 0; i < 10; i++) {
+                var x = gifCount + 10;
+                console.log("x: " + x + " gifCount " + gifCount);
+                for (var i = 0; i < x; i++) {
                     var gifDiv = $("<div style='float:left;' class='animated zoomInRight'>");
                     var gif = $("<img>");
-                    var p = $("<p class='text-light'>");
+                    var pTitle = $("<p class='text-light' style='line-height:1;'>");
+                    var pRating = $("<p class='text-light' style='line-height:0;'>");
                     var oldGif = $("#image" + i.toString());
                     oldGif.removeAttr("data-still");
                     oldGif.removeAttr("data-animate");
                     gif.addClass("gif");
+                    console.log("i: ", i);
                     gif.attr("src", response.data[i].images.original_still.url);
                     gif.attr("rating", response.data[i].rating);
-                    p.text("Rating: " + response.data[i].rating);
+                    pTitle.text("Title: " + response.data[i].title);
+                    pRating.text("Rating: " + response.data[i].rating);
                     gif.attr("data-name", "image" + i.toString());
                     gif.attr("id", "image" + i.toString());
                     gif.attr("data-still", response.data[i].images.original_still.url);
@@ -106,12 +133,16 @@ $(document).ready(function () {
                     // console.log("response data-" + response.data[i].images.original.url);
                     gif.attr("data-state", "still");
                     gifDiv.append(gif);
-                    gifDiv.append(p);
+                    gifDiv.append(pTitle);
+                    gifDiv.append(pRating);
                     feelingView.append(gifDiv);
                     // gif.appendTo("#feeling-view");
                     // p.appendTo("#feeling-view");
                     feelingView.appendTo("#base");
+                    // gifCount = gifCount + 10;
                 }
+
+
                 /**
                  * On click class gif calls {@link gifStillAnimate} set onclick after div built
                  * @event $feelingViewOnclick
@@ -173,6 +204,12 @@ $(document).ready(function () {
         node.addEventListener('animationend', handleAnimationEnd)
     }
 
+
+    /**
+     * Onclick event when user requests to add 10 gifs to {@link feelingView} then call {@link alertFeelingName} 
+     * @event $addTenOnclick
+     */
+    $(document).on("click", "#add-ten-gifs", alertFeelingName);
 
     /**
      * On click feeling class to call {@link alertFeelingName}
