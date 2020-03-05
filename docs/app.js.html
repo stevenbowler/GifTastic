@@ -35,68 +35,65 @@
  * 
  * */
 
+
 /**
  * Wraps all JQuery
- * @event $documentReady
+ * @event documentReady
 */
 $(document).ready(function () {
-
-    // 
-    /**Initial array of feelings
-     * @type {Array&lt;string>}
-     */
-    var feelings = ["Happy", "Sad", "Victory", "Joy", "Pain", "Middle Finger", "Indigestion", "Cut The Cheese", "Cramps", "Success", "Failure"];
-
-    /**Has page been loaded before, if yes then use animateCSS to unload previous 
-     * @type {number}
-    */
-    var loadCount = 0;
 
 
     /** 
      * Generic function for capturing the feeling name from the data-attribute, called from {@link bottom}
      * @function renderButtons 
      */
-    function renderButtons() {
+    const renderButtons = () => {
         // Deleting the feelings prior to adding new feelings
         // (this is necessary otherwise we will have repeat buttons)
         $("#buttons-view").empty();
 
         // Looping through the array of feelings
         for (var i = 0; i &lt; feelings.length; i++) {
-
-            // Then dynamicaly generating buttons for each feeling in the array
-            // This code $("&lt;button>") is all jQuery needs to create the beginning and end tag. (&lt;button>&lt;/button>)
             var a = $("&lt;button>");
-            // Adding a class
             a.addClass("feeling btn btn-outline-light");
-            // Added a data-attribute
             a.attr("data-name", feelings[i]);
-            // Provided the initial button text
             a.text(feelings[i]);
-            // Added the button to the HTML
             $("#buttons-view").append(a);
         }
     }
 
 
+
+    /**
+     * Double click any gif displayed to add to the {@link favoriteArray} and in local storage "favoriteArray"
+     * @event documentOnDoubleClickGif
+     */
+    const documentOnDoubleClickGif = $(document.body).on("dblclick", ".gif", function (e) {
+        var gifNode = {
+            still: e.target.attributes.getNamedItem("data-still").textContent,
+            animate: e.target.attributes.getNamedItem("data-animate").textContent
+        }
+        favoriteArray.push(gifNode);
+        console.log("gifNode: ", gifNode, " favoriteArray: ", favoriteArray);
+        localStorage.setItem("favoriteArray", JSON.stringify(favoriteArray));
+        alert("just added to favorites, now " + favoriteArray.length + " favorites.");
+    });
+
+
+
     /** 
      * Onclick event when user requests to add a new feeling to {@link feelingArray}, then call {@link renderButtons}
-     * @event $add-feelingOnclick
+     * @constant
+     * @event onClickAddFeeling
     */
-    $("#add-feeling").on("click", function (event) {
+    const onClickAddFeeling = $("#add-feeling").on("click", function (event) {
         event.preventDefault();
-
-        // This line grabs the input from the textbox
         //@ts-ignore
         var feeling = $("#feeling-input").val().trim();
-
-        // The feeling from the textbox is then added to array
         feelings.push(feeling);
-
-        // Calling renderButtons which handles the processing of feeling array
         renderButtons();
     });
+
 
 
     /** called from {@link $(document).on("click")} event listener click on feeling class
@@ -104,28 +101,42 @@ $(document).ready(function () {
      * @param {object} e event object
      */
     const alertFeelingName = (e) => {
+        if (gifCount >= 100) { alert("max 100 gifs exceeded, choose another feeling"); return; }
         var feeling = e.target.innerText;
-        var url = "https://api.giphy.com/v1/gifs/search?api_key=sGt5xc6wCkBEmaU8njjufs8ZOuKh5enL&amp;q=" + feeling;
+        if (feeling === "Add 10 Gifs") {
+            console.log("feeling" + feeling);
+            feeling = lastFeeling;
+            gifCount = gifCount + 10;
+        }
+        else {
+            gifCount = 0;
+            lastFeeling = feeling;
+        }
+        feelingView.empty();
+        $("#base").empty();
+        var url = "https://api.giphy.com/v1/gifs/search?api_key=sGt5xc6wCkBEmaU8njjufs8ZOuKh5enL&amp;limit=100&amp;q=" + feeling;
         console.log("Feeling name is: " + e.target.innerText + "feeling: " + feeling);
         $.ajax({ url, method: "GET" })
             .then(function (response) {
-                var feelingView = $("&lt;div id='feeling-view'>");
-                // if (loadCount >= 1) animateCSS("#feeling-view", "zoomOutLeft");
-                // ++loadCount;
-                feelingView.empty();
-                $("#base").empty();
+                if (gifCount === 0) {       // if new feeling empty everything then reload
+                }
                 console.log(response);
-                for (var i = 0; i &lt; 10; i++) {
+                var x = gifCount + 10;
+                console.log("x: " + x + " gifCount " + gifCount);
+                for (var i = 0; i &lt; x; i++) {
                     var gifDiv = $("&lt;div style='float:left;' class='animated zoomInRight'>");
                     var gif = $("&lt;img>");
-                    var p = $("&lt;p class='text-light'>");
+                    var pTitle = $("&lt;p class='text-light' style='line-height:1;'>");
+                    var pRating = $("&lt;p class='text-light' style='line-height:0;'>");
                     var oldGif = $("#image" + i.toString());
                     oldGif.removeAttr("data-still");
                     oldGif.removeAttr("data-animate");
                     gif.addClass("gif");
+                    console.log("i: ", i);
                     gif.attr("src", response.data[i].images.original_still.url);
                     gif.attr("rating", response.data[i].rating);
-                    p.text("Rating: " + response.data[i].rating);
+                    pTitle.text("Title: " + response.data[i].title);
+                    pRating.text("Rating: " + response.data[i].rating);
                     gif.attr("data-name", "image" + i.toString());
                     gif.attr("id", "image" + i.toString());
                     gif.attr("data-still", response.data[i].images.original_still.url);
@@ -134,17 +145,21 @@ $(document).ready(function () {
                     // console.log("response data-" + response.data[i].images.original.url);
                     gif.attr("data-state", "still");
                     gifDiv.append(gif);
-                    gifDiv.append(p);
+                    gifDiv.append(pTitle);
+                    gifDiv.append(pRating);
                     feelingView.append(gifDiv);
                     // gif.appendTo("#feeling-view");
                     // p.appendTo("#feeling-view");
                     feelingView.appendTo("#base");
+                    // gifCount = gifCount + 10;
                 }
+
+
                 /**
                  * On click class gif calls {@link gifStillAnimate} set onclick after div built
-                 * @event $feelingViewOnclick
+                 * @event feelingViewOnClick
                  */
-                feelingView.on("click", ".gif", gifStillAnimate);
+                const feelingViewOnClick = feelingView.on("click", ".gif", gifStillAnimate);
             }).catch(function (err) {
                 console.log(err);
             }
@@ -203,10 +218,18 @@ $(document).ready(function () {
 
 
     /**
-     * On click feeling class to call {@link alertFeelingName}
-     * @event $documentOnclick 
+     * Onclick event when user requests to add 10 gifs to {@link feelingView} then call {@link alertFeelingName} 
+     * @event addTenOnClick
      */
-    $(document).on("click", ".feeling", alertFeelingName);
+    const addTenOnClick = $(document).on("click", "#add-ten-gifs", alertFeelingName);
+
+
+    /**
+     * On click feeling class to call {@link alertFeelingName}
+     * @event documentOnClickFeeling 
+     */
+    const documentOnClickFeeling = $(document).on("click", ".feeling", alertFeelingName);
+
 
     /**@bottom Calling the renderButtons function to display the intial buttons
      */
@@ -222,13 +245,13 @@ $(document).ready(function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">GifTastic</a></h2><h3>Events</h3><ul><li><a href="global.html#event:$add-feelingOnclick">$add-feelingOnclick</a></li><li><a href="global.html#event:$documentOnclick">$documentOnclick</a></li><li><a href="global.html#event:$documentReady">$documentReady</a></li><li><a href="global.html#event:$feelingViewOnclick">$feelingViewOnclick</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertFeelingName">alertFeelingName</a></li><li><a href="global.html#animateCSS">animateCSS</a></li><li><a href="global.html#gifStillAnimate">gifStillAnimate</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#top">top</a></li></ul>
+    <h2><a href="index.html">GifTastic</a></h2><h3>Events</h3><ul><li><a href="global.html#event:addTenOnClick">addTenOnClick</a></li><li><a href="global.html#event:documentOnClickFeeling">documentOnClickFeeling</a></li><li><a href="global.html#event:documentOnDoubleClickGif">documentOnDoubleClickGif</a></li><li><a href="global.html#event:documentReady">documentReady</a></li><li><a href="global.html#event:feelingViewOnClick">feelingViewOnClick</a></li><li><a href="global.html#event:onClickAddFeeling">onClickAddFeeling</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertFeelingName">alertFeelingName</a></li><li><a href="global.html#animateCSS">animateCSS</a></li><li><a href="global.html#favoriteArray">favoriteArray</a></li><li><a href="global.html#feelings">feelings</a></li><li><a href="global.html#feelingView">feelingView</a></li><li><a href="global.html#gifCount">gifCount</a></li><li><a href="global.html#gifStillAnimate">gifStillAnimate</a></li><li><a href="global.html#lastFeeling">lastFeeling</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#top">top</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Mar 02 2020 08:33:07 GMT-0600 (Central Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Mar 05 2020 14:23:21 GMT-0600 (Central Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

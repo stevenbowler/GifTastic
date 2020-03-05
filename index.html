@@ -59,8 +59,8 @@
                     action="https://github.com/stevenbowler/GifTastic/search?">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search Repository"
                         aria-label="Search" id="googlesearch" name="q">
-                    <button class="btn btn-outline-success my-2 my-sm-0" onclick="search()" type="submit"
-                        id="searchButton">Search</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchButton">Search</button>
+
                 </form>
             </div>
         </nav>
@@ -77,8 +77,9 @@
         <div id="buttons-view" class="animated zoomInRight"></div>
 
         <form id="feeling-form">
-            <label for="feeling-input" class="text-light animated zoomInLeft">Add a Feeling</label>
-            <input type="text" id="feeling-input" class="form-control animated zoomInLeft">
+            <!-- <label for="feeling-input" class="text-light animated zoomInLeft">Add a Feeling</label> -->
+            <input type="text" id="feeling-input" placeholder="Add a Feeling" class="form-control animated zoomInLeft"
+                style="background-color: lightgray;">
 
             <!-- Button triggers new movie to be added -->
             <input id="add-feeling" type="submit" value="Add a Feeling"
@@ -86,6 +87,12 @@
             <button id="add-ten-gifs" type="button" value="Add gifs"
                 class="btn btn-outline-light animated zoomInRight">Add 10
                 Gifs</button>
+            <!-- <button id="add-to-favorites" class="btn btn-outline-light animated zoomInRight" type="button">Add to
+                Favorites</button>
+            <button id="remove-from-favorites" class="btn btn-outline-light animated zoomInRight" type="button">Remove
+                From Favorites</button> -->
+            <button id="display-favorites" class="btn btn-outline-light animated zoomInRight" type="button">Display
+                Favorites</button>
         </form>
         <div id=base>
             <!-- <div id="feeling-view">

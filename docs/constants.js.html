@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: GifTastic</title>
+    <title>JSDoc: Source: constants.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,54 @@
 
 <div id="main">
 
-    <h1 class="page-title">GifTastic</h1>
+    <h1 class="page-title">Source: constants.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// @ts-check
+
+/**Initial array of feelings
+ * @type {Array&lt;string>}
+ */
+var feelings = ["Happy", "Sad", "Victory", "Joy", "Pain", "Middle Finger", "Indigestion", "Cut The Cheese", "Cramps", "Success", "Failure"];
 
 
-    <h3> </h3>
+/**Has page been loaded before, if yes then use animateCSS to unload previous 
+ * @type {Array&lt;
+            String,
+            String
+            >}
+ */
+var favoriteArray = JSON.parse(localStorage.getItem("favoriteArray"));
+
+// favoriteArray favArray = new favoriteArray;
+
+/**Has page been loaded before, if yes then use animateCSS to unload previous 
+ * @type {number}
+ */
+var gifCount = 0;
 
 
+/** Used for keeping track of previous state of "feeling to be displayed" if currentFeeling = previousFeeling add 10 more, else new
+ * @type {string}
+ */
+var lastFeeling = "";       // used if user requests 10 more of same feeling gifs then use same string
 
 
+/**
+ * div type where images are loaded then appended
+ * @type {JQuery}
+ */
+var feelingView = $("&lt;div id='feeling-view'>");
 
-
-
-
-
-
-    
-
-
-
-
-
+</code></pre>
+        </article>
+    </section>
 
 
 
