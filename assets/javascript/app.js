@@ -68,8 +68,8 @@ $(document).ready(function () {
             // title: e.target.attributes.getNamedItem("title").textContent,
             // rating: e.target.attributes.getNamedItem("rating").textContent,
         }
-        favoriteArray.push(gifNode);
         console.log("gifNode: ", gifNode, " favoriteArray: ", favoriteArray);
+        favoriteArray.push(gifNode);
         localStorage.setItem("favoriteArray", JSON.stringify(favoriteArray));
         alert("just added to favorites, now " + favoriteArray.length + " favorites.");
     });
