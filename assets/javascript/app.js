@@ -26,7 +26,7 @@ $(document).ready(function () {
      * @type {Array<object>}
      */
     console.log(localStorage.getItem("favoriteArray"));
-    if (localStorage.getItem("favoriteArray") === null) favoriteArray = [];
+    if (localStorage.getItem("favoriteArray") === null || localStorage.getItem("favoriteArray") === undefined) favoriteArray = [];
     else var favoriteArray = JSON.parse(localStorage.getItem("favoriteArray"));
     // console.log(localStorage.getItem("favoriteArray"), "JSON.parse: ", JSON.parse(localStorage.getItem("favoriteArray")));
     // var favoriteArray = JSON.parse(localStorage.getItem("favoriteArray") || tempFavoriteArray);
