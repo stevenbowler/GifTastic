@@ -28,6 +28,7 @@ $(document).ready(function () {
     console.log(localStorage.getItem("favoriteArray"));
     if (localStorage.getItem("favoriteArray") === null || localStorage.getItem("favoriteArray") === undefined) favoriteArray = [];
     else var favoriteArray = JSON.parse(localStorage.getItem("favoriteArray"));
+    // else var favoriteArray = localStorage.getItem("favoriteArray");
     // console.log(localStorage.getItem("favoriteArray"), "JSON.parse: ", JSON.parse(localStorage.getItem("favoriteArray")));
     // var favoriteArray = JSON.parse(localStorage.getItem("favoriteArray") || tempFavoriteArray);
     // var favoriteArray = [{still: "https://media3.giphy.com/media/ctMRkUYFJaVMjLWO8U/…08626c2f3e7f2a1292123715e228fec1a&rid=giphy_s.gif", animate: "https://media3.giphy.com/media/ctMRkUYFJaVMjLWO8U/…7b08626c2f3e7f2a1292123715e228fec1a&rid=giphy.gif"}];
