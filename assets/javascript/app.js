@@ -60,26 +60,6 @@ $(document).ready(function () {
 
 
 
-    /** 
-     * Generic function for capturing the feeling name from the data-attribute, called from {@link bottom}
-     * @function renderButtons 
-     */
-    const renderButtons = () => {
-        // Deleting the feelings prior to adding new feelings
-        // (this is necessary otherwise we will have repeat buttons)
-        $("#buttons-view").empty();
-
-        // Looping through the array of feelings
-        for (var i = 0; i < feelings.length; i++) {
-            var a = $("<button>");
-            a.addClass("feeling btn btn-outline-light");
-            a.attr("data-name", feelings[i]);
-            a.text(feelings[i]);
-            $("#buttons-view").append(a);
-        }
-    }
-
-
 
     /**
      * Double click any favoriteGif displayed to delete from the {@link favoriteArray} and from local storage "favoriteArray"
@@ -125,7 +105,7 @@ $(document).ready(function () {
      * Onclick event when user requests to add a new feeling to {@link feelingArray}, then call {@link renderButtons}
      * @constant
      * @event onClickAddFeeling
-    */
+     */
     const onClickAddFeeling = $("#add-feeling").on("click", function (event) {
         event.preventDefault();
         //@ts-ignore
@@ -136,7 +116,33 @@ $(document).ready(function () {
 
 
 
-    /** called from {@link $(document).on("click")} event listener click on feeling class
+    /** 
+     * Generic function for capturing the feeling name from the data-attribute, called from {@link bottom}
+     * @function renderButtons 
+     */
+    const renderButtons = () => {
+        // Deleting the feelings prior to adding new feelings
+        // (this is necessary otherwise we will have repeat buttons)
+        $("#buttons-view").empty();
+
+        // Looping through the array of feelings
+        for (var i = 0; i < feelings.length; i++) {
+            var a = $("<button>");
+            a.addClass("feeling btn btn-outline-light");
+            a.attr("data-name", feelings[i]);
+            a.text(feelings[i]);
+            $("#buttons-view").append(a);
+        }
+    }
+
+
+
+
+
+
+
+
+    /** called from {@link onClickDisplayFavorites}, {@link onClickAddTen} or {@link onClickFeeling} event listener click on feeling class
      * @function alertFeelingName 
      * @param {object} e event object
      */
@@ -292,7 +298,7 @@ $(document).ready(function () {
 
 
     /**
-     * On click feeling class to call {@link alertFeelingName}
+     * On click feeling class to call {@link alertFeelingName} to display 10 gifs for that feeling
      * @event onClickFeeling 
      */
     const onClickFeeling = $(document).on("click", ".feeling", alertFeelingName);

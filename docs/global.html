@@ -94,370 +94,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id="favoriteArray"><span class="type-signature"></span>favoriteArray<span class="type-signature"> :Array.&lt;object></span></h4>
-
-
-
-
-<div class="description">
-    <p>Has page been loaded before, if yes then use animateCSS to unload previous</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Array.&lt;object></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="feelings"><span class="type-signature"></span>feelings<span class="type-signature"> :Array.&lt;string></span></h4>
-
-
-
-
-<div class="description">
-    <p>Initial array of feelings</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Array.&lt;string></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line6">line 6</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="feelingView"><span class="type-signature"></span>feelingView<span class="type-signature"> :JQuery</span></h4>
-
-
-
-
-<div class="description">
-    <p>div type where images are loaded then appended</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">JQuery</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line32">line 32</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="gifCount"><span class="type-signature"></span>gifCount<span class="type-signature"> :number</span></h4>
-
-
-
-
-<div class="description">
-    <p>Has page been loaded before, if yes then use animateCSS to unload previous</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line19">line 19</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="lastFeeling"><span class="type-signature"></span>lastFeeling<span class="type-signature"> :string</span></h4>
-
-
-
-
-<div class="description">
-    <p>Used for keeping track of previous state of &quot;feeling to be displayed&quot; if currentFeeling = previousFeeling add 10 more, else new</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants.js.html">constants.js</a>, <a href="constants.js.html#line25">line 25</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -476,7 +112,7 @@
 
 
 <div class="description">
-    <p>called from <code>$(document).on("click")</code> event listener click on feeling class</p>
+    <p>called from <code>onClickDisplayFavorites</code>, <code>onClickAddTen</code> or <code>onClickFeeling</code> event listener click on feeling class</p>
 </div>
 
 
@@ -569,7 +205,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line94">line 94</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line139">line 139</a>
     </li></ul></dd>
     
 
@@ -781,7 +417,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line210">line 210</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line255">line 255</a>
     </li></ul></dd>
     
 
@@ -918,7 +554,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line185">line 185</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line230">line 230</a>
     </li></ul></dd>
     
 
@@ -1006,7 +642,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line18">line 18</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line63">line 63</a>
     </li></ul></dd>
     
 
@@ -1281,7 +917,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line79">line 79</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -1325,7 +961,7 @@ from GitHub animate.css library</p>
 
 
 <div class="description">
-    <p>Onclick event when user requests to add 10 gifs to <a href="global.html#feelingView"><code>feelingView</code></a> then call <a href="global.html#alertFeelingName"><code>alertFeelingName</code></a></p>
+    <p>Onclick event when user requests to add 10 gifs to <code>feelingView</code> then call <a href="global.html#alertFeelingName"><code>alertFeelingName</code></a></p>
 </div>
 
 
@@ -1369,7 +1005,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line242">line 242</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line287">line 287</a>
     </li></ul></dd>
     
 
@@ -1413,7 +1049,7 @@ from GitHub animate.css library</p>
 
 
 <div class="description">
-    <p>Onclick event when user requests to add 10 gifs to <a href="global.html#feelingView"><code>feelingView</code></a> then call <a href="global.html#alertFeelingName"><code>alertFeelingName</code></a></p>
+    <p>Onclick event when user requests to add 10 gifs to <code>feelingView</code> then call <a href="global.html#alertFeelingName"><code>alertFeelingName</code></a></p>
 </div>
 
 
@@ -1457,7 +1093,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line234">line 234</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line279">line 279</a>
     </li></ul></dd>
     
 
@@ -1501,7 +1137,7 @@ from GitHub animate.css library</p>
 
 
 <div class="description">
-    <p>Double click any favoriteGif displayed to delete from the <a href="global.html#favoriteArray"><code>favoriteArray</code></a> and from local storage &quot;favoriteArray&quot;</p>
+    <p>Double click any favoriteGif displayed to delete from the <code>favoriteArray</code> and from local storage &quot;favoriteArray&quot;</p>
 </div>
 
 
@@ -1545,7 +1181,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line39">line 39</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line84">line 84</a>
     </li></ul></dd>
     
 
@@ -1589,7 +1225,7 @@ from GitHub animate.css library</p>
 
 
 <div class="description">
-    <p>On click feeling class to call <a href="global.html#alertFeelingName"><code>alertFeelingName</code></a></p>
+    <p>On click feeling class to call <a href="global.html#alertFeelingName"><code>alertFeelingName</code></a> to display 10 gifs for that feeling</p>
 </div>
 
 
@@ -1633,7 +1269,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line249">line 249</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line294">line 294</a>
     </li></ul></dd>
     
 
@@ -1721,7 +1357,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line167">line 167</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line212">line 212</a>
     </li></ul></dd>
     
 
@@ -1765,7 +1401,7 @@ from GitHub animate.css library</p>
 
 
 <div class="description">
-    <p>Double click any gif displayed to add to the <a href="global.html#favoriteArray"><code>favoriteArray</code></a> and in local storage &quot;favoriteArray&quot;</p>
+    <p>Double click any gif displayed to add to the <code>favoriteArray</code> and in local storage &quot;favoriteArray&quot;</p>
 </div>
 
 
@@ -1809,7 +1445,7 @@ from GitHub animate.css library</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="app.js.html">app.js</a>, <a href="app.js.html#line60">line 60</a>
+        <a href="app.js.html">app.js</a>, <a href="app.js.html#line105">line 105</a>
     </li></ul></dd>
     
 
@@ -1851,13 +1487,13 @@ from GitHub animate.css library</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">GifTastic</a></h2><h3>Events</h3><ul><li><a href="global.html#event:documentReady">documentReady</a></li><li><a href="global.html#event:onClickAddFeeling">onClickAddFeeling</a></li><li><a href="global.html#event:onClickAddTen">onClickAddTen</a></li><li><a href="global.html#event:onClickDisplayFavorites">onClickDisplayFavorites</a></li><li><a href="global.html#event:onClickFavoriteGif">onClickFavoriteGif</a></li><li><a href="global.html#event:onClickFeeling">onClickFeeling</a></li><li><a href="global.html#event:onClickFeelingView">onClickFeelingView</a></li><li><a href="global.html#event:onDoubleClickGif">onDoubleClickGif</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertFeelingName">alertFeelingName</a></li><li><a href="global.html#animateCSS">animateCSS</a></li><li><a href="global.html#favoriteArray">favoriteArray</a></li><li><a href="global.html#feelings">feelings</a></li><li><a href="global.html#feelingView">feelingView</a></li><li><a href="global.html#gifCount">gifCount</a></li><li><a href="global.html#gifStillAnimate">gifStillAnimate</a></li><li><a href="global.html#lastFeeling">lastFeeling</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#top">top</a></li></ul>
+    <h2><a href="index.html">GifTastic</a></h2><h3>Events</h3><ul><li><a href="global.html#event:documentReady">documentReady</a></li><li><a href="global.html#event:onClickAddFeeling">onClickAddFeeling</a></li><li><a href="global.html#event:onClickAddTen">onClickAddTen</a></li><li><a href="global.html#event:onClickDisplayFavorites">onClickDisplayFavorites</a></li><li><a href="global.html#event:onClickFavoriteGif">onClickFavoriteGif</a></li><li><a href="global.html#event:onClickFeeling">onClickFeeling</a></li><li><a href="global.html#event:onClickFeelingView">onClickFeelingView</a></li><li><a href="global.html#event:onDoubleClickGif">onDoubleClickGif</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertFeelingName">alertFeelingName</a></li><li><a href="global.html#animateCSS">animateCSS</a></li><li><a href="global.html#gifStillAnimate">gifStillAnimate</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#top">top</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Mar 05 2020 16:44:19 GMT-0600 (Central Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 06 2020 14:45:57 GMT-0600 (Central Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -43,6 +43,51 @@
 $(document).ready(function () {
 
 
+
+    /**Initial array of feelings
+     * @type {Array&lt;string>}
+     */
+    var feelings = ["Happy", "Sad", "Victory", "Joy", "Pain", "Middle Finger", "Indigestion", "Cut The Cheese", "Cramps", "Success", "Failure"];
+
+    var tempFavoriteArray = [{ still: "https://media3.giphy.com/media/ctMRkUYFJaVMjLWO8U/…08626c2f3e7f2a1292123715e228fec1a&amp;rid=giphy_s.gif", animate: "https://media3.giphy.com/media/ctMRkUYFJaVMjLWO8U/…7b08626c2f3e7f2a1292123715e228fec1a&amp;rid=giphy.gif" }];
+    /**Has page been loaded before, if yes then use animateCSS to unload previous 
+     * @type {Array&lt;object>}
+     */
+    console.log(localStorage.getItem("favoriteArray"));
+    if (localStorage.getItem("favoriteArray") === null || localStorage.getItem("favoriteArray") === undefined) favoriteArray = [];
+    else var favoriteArray = JSON.parse(localStorage.getItem("favoriteArray"));
+    // else var favoriteArray = localStorage.getItem("favoriteArray");
+    // console.log(localStorage.getItem("favoriteArray"), "JSON.parse: ", JSON.parse(localStorage.getItem("favoriteArray")));
+    // var favoriteArray = JSON.parse(localStorage.getItem("favoriteArray") || tempFavoriteArray);
+    // var favoriteArray = [{still: "https://media3.giphy.com/media/ctMRkUYFJaVMjLWO8U/…08626c2f3e7f2a1292123715e228fec1a&amp;rid=giphy_s.gif", animate: "https://media3.giphy.com/media/ctMRkUYFJaVMjLWO8U/…7b08626c2f3e7f2a1292123715e228fec1a&amp;rid=giphy.gif"}];
+
+    // favoriteArray favArray = new favoriteArray;
+
+    /**Has page been loaded before, if yes then use animateCSS to unload previous 
+     * @type {number}
+     */
+    var gifCount = 0;
+
+
+    /** Used for keeping track of previous state of "feeling to be displayed" if currentFeeling = previousFeeling add 10 more, else new
+     * @type {string}
+     */
+    var lastFeeling = "";       // used if user requests 10 more of same feeling gifs then use same string
+
+
+    /**
+     * div type where images are loaded then appended
+     * @type {JQuery}
+     */
+    var feelingView = $("&lt;div id='feeling-view'>");
+
+
+
+
+
+
+
+
     /** 
      * Generic function for capturing the feeling name from the data-attribute, called from {@link bottom}
      * @function renderButtons 
@@ -96,8 +141,8 @@ $(document).ready(function () {
             // title: e.target.attributes.getNamedItem("title").textContent,
             // rating: e.target.attributes.getNamedItem("rating").textContent,
         }
-        favoriteArray.push(gifNode);
         console.log("gifNode: ", gifNode, " favoriteArray: ", favoriteArray);
+        favoriteArray.push(gifNode);
         localStorage.setItem("favoriteArray", JSON.stringify(favoriteArray));
         alert("just added to favorites, now " + favoriteArray.length + " favorites.");
     });
@@ -119,7 +164,7 @@ $(document).ready(function () {
 
 
 
-    /** called from {@link $(document).on("click")} event listener click on feeling class
+    /** called from {@link onClickDisplayFavorites}, {@link onClickAddTen} or {@link onClickFeeling} event listener click on feeling class
      * @function alertFeelingName 
      * @param {object} e event object
      */
@@ -275,7 +320,7 @@ $(document).ready(function () {
 
 
     /**
-     * On click feeling class to call {@link alertFeelingName}
+     * On click feeling class to call {@link alertFeelingName} to display 10 gifs for that feeling
      * @event onClickFeeling 
      */
     const onClickFeeling = $(document).on("click", ".feeling", alertFeelingName);
@@ -295,13 +340,13 @@ $(document).ready(function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">GifTastic</a></h2><h3>Events</h3><ul><li><a href="global.html#event:documentReady">documentReady</a></li><li><a href="global.html#event:onClickAddFeeling">onClickAddFeeling</a></li><li><a href="global.html#event:onClickAddTen">onClickAddTen</a></li><li><a href="global.html#event:onClickDisplayFavorites">onClickDisplayFavorites</a></li><li><a href="global.html#event:onClickFavoriteGif">onClickFavoriteGif</a></li><li><a href="global.html#event:onClickFeeling">onClickFeeling</a></li><li><a href="global.html#event:onClickFeelingView">onClickFeelingView</a></li><li><a href="global.html#event:onDoubleClickGif">onDoubleClickGif</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertFeelingName">alertFeelingName</a></li><li><a href="global.html#animateCSS">animateCSS</a></li><li><a href="global.html#favoriteArray">favoriteArray</a></li><li><a href="global.html#feelings">feelings</a></li><li><a href="global.html#feelingView">feelingView</a></li><li><a href="global.html#gifCount">gifCount</a></li><li><a href="global.html#gifStillAnimate">gifStillAnimate</a></li><li><a href="global.html#lastFeeling">lastFeeling</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#top">top</a></li></ul>
+    <h2><a href="index.html">GifTastic</a></h2><h3>Events</h3><ul><li><a href="global.html#event:documentReady">documentReady</a></li><li><a href="global.html#event:onClickAddFeeling">onClickAddFeeling</a></li><li><a href="global.html#event:onClickAddTen">onClickAddTen</a></li><li><a href="global.html#event:onClickDisplayFavorites">onClickDisplayFavorites</a></li><li><a href="global.html#event:onClickFavoriteGif">onClickFavoriteGif</a></li><li><a href="global.html#event:onClickFeeling">onClickFeeling</a></li><li><a href="global.html#event:onClickFeelingView">onClickFeelingView</a></li><li><a href="global.html#event:onDoubleClickGif">onDoubleClickGif</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertFeelingName">alertFeelingName</a></li><li><a href="global.html#animateCSS">animateCSS</a></li><li><a href="global.html#gifStillAnimate">gifStillAnimate</a></li><li><a href="global.html#renderButtons">renderButtons</a></li><li><a href="global.html#top">top</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Mar 05 2020 16:44:19 GMT-0600 (Central Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Mar 06 2020 14:45:57 GMT-0600 (Central Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
